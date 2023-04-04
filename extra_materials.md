@@ -8,24 +8,25 @@
    [link](http://cs231n.stanford.edu/vecDerivs.pdf)
 1. [en] Derivatives notes from Stanford:
    [link](http://cs231n.stanford.edu/handouts/derivatives.pdf)
+1. [en] Python Numpy Tutorial:
+   [link](https://cs231n.github.io/python-numpy-tutorial/)
+1. [en] Python for Maths repo:
+   [link](https://gitlab.erc.monash.edu.au/andrease/Python4Maths/tree/master)
 
 ## Basic Machine Learning
 
+1. [ru] Учебник ШАД по машинному обучению: [link](https://academy.yandex.ru/handbook/ml)
 1. [en] The Hundred-page Machine Learning book: [link](http://themlbook.com)
-   (available online, e.g. on the
-   [github](https://github.com/ZakiaSalod/The-Hundred-Page-Machine-Learning-Book))
 1. [ru] Отличные лекции Жени Соколова. Читать pdf, лучше всего наиболее
    актуальный год: [link](https://github.com/esokolov/ml-course-hse)
 1. [en] Naive Bayesian classifier explained:
    [link](https://machinelearningmastery.com/classification-as-conditional-probability-and-the-naive-bayes-algorithm/)
 1. [en] Stanford notes on linear models:
-   [link](http://cs229.stanford.edu/notes/cs229-notes1.pdf)
+   [link](https://see.stanford.edu/materials/aimlcs229/cs229-notes1.pdf)
 1. [ru] “Рукописный учебник” от студентов нашего курса на ФИВТе:
    [link](https://github.com/ml-mipt/ml-mipt/blob/master/ML_informal_notes.pdf)
 1. [ru] Методичка Воронцова,
    [link](http://www.machinelearning.ru/wiki/images/6/6d/Voron-ML-1.pdf)
-1. [ru] Замечательная книжка В.Г. Спокойного про линейные оценки:
-   [link](http://strlearn.ru/wp-content/uploads/2017/01/script2018-5.pdf)
 
 ## Bootstrap and bias-variance decomposition
 
@@ -95,8 +96,6 @@
    https://arxiv.org/abs/1408.5882
 1. [en] Great blog post by Jay Alammar on Transformer:
    https://jalammar.github.io/illustrated-transformer/
-1. Notebook on positional encoding:
-   [link](https://github.com/ml-mipt/ml-mipt/blob/advanced/week04_Transformer/week04_positional_encoding_carriers.ipynb)
 1. [en] Great Annotated Transformer article with code and comments by Harvard
    NLP group: https://nlp.seas.harvard.edu/2018/04/03/attention.html
 1. [en] Harvard NLP
