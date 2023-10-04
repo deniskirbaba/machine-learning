@@ -74,7 +74,7 @@ class KNearestNeighbor(object):
                 #####################################################################
                 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-                dists[i,j] = np.sum(np.power(X[i,:]-self.X_train[j,:],2))
+                dists[i, j] = np.sum(np.power(X[i, :] - self.X_train[j, :], 2))
 
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
