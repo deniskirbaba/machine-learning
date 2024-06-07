@@ -318,7 +318,7 @@ class DecisionTree(BaseEstimator):
 
     def predict(self, X):
         """
-        Predict the target value or class label  the model from scratch using the provided data
+        Predict the target value or class label the model from scratch using the provided data
 
         Parameters
         ----------
