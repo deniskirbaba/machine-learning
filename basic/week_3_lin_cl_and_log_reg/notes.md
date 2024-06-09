@@ -4,3 +4,5 @@ Balanced accuracy рассчитывает accuracy по каждому клас
 
 https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/
 
+
+Логистическая регрессия задаёт нелинейное отображение, так как она задаёт отображение из пространства признаков в вероятностное пространство. Однако разделяющей поверхностью является гиперплоскость!
