@@ -6,3 +6,4 @@ https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-cl
 
 
 Логистическая регрессия задаёт нелинейное отображение, так как она задаёт отображение из пространства признаков в вероятностное пространство. Однако разделяющей поверхностью является гиперплоскость!
+By using Logistic Regression we generate a Bernoulli distribution in each point of space!
