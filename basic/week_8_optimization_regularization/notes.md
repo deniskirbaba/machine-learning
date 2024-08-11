@@ -62,7 +62,7 @@ L2-регуляризация - приводит к тому, что ампли�
 
 ## Batch normalization
 https://arxiv.org/abs/1502.03167
-BatchNorm alleviates a lot of headaches with properly initializing neural networks by explicitly forcing the activations throughout a network to take on a unit gaussian distribution at the beginning of the training.
+BatchNorm alleviates a lot of headaches with properly initializing neural networks by explicitly forcing the activations throughout a network to take on a unit gaussian (not always gaussian, but at least with equal mean=0 and std=1) distribution at the beginning of the training.
 
 Batch Normalization allows us to use much higher learning rates and be less careful about initialization. It also acts as a regularizer, in some cases eliminating the need for Dropout.
 
@@ -74,7 +74,7 @@ Batch Normalization allows us to use much higher learning rates and be less care
 
 This problem slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities.
 
-А мы всегда хотим, чтобы наши данные были i.i.d., а из-за этой проблемы у нас получается, что какому-то слою приходят данные из разных рапсределений.
+А мы всегда хотим, чтобы наши данные были i.i.d., а из-за этой проблемы у нас получается, что какому-то слою приходят данные из разных распределений.
 
 Чтобы избежать данной проблемы используется BatchNorm. Считаем во время training среднее выборочное и выборочную дисперсию и нормализуем данные. Считаем эти статистики по каждому отдельному латентному признаку! Также мы обновляем эти статистики на каждом шаге training с помощью экспоненциального среднего. Тогда на инференсе мы будем использовать эти накопленные статистики. 
 
