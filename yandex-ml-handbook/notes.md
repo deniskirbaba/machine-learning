@@ -52,10 +52,29 @@ Multi-class Classification Metrics:
 4. Logarithmic Loss (Log Loss): Measures the uncertainty of predictions.
 5. Cohen’s Kappa: Measures the agreement between predicted and actual classes, adjusted for chance.
 
+Precision-Recall Curves are preferable for imbalanced datasets and when the focus is on the positive class.  
+ROC Curves provide a more balanced view of performance, especially on balanced datasets, and are easier to interpret across a wide range of applications.  
+Choose the curve based on the nature of your dataset and the importance of precision vs. recall in your specific problem.  
+
 При адаптации метрик бинарной классификации к многоклассовой производится вычисление метрик для каждого класса и затем их усреднение по различному виду: macro, micro, weighted:
-1. Macro - независимо рассчитываем метрику для каждого класса и затем берем среднее арифметическое по всем классам. macro_f1 = 1/N (sum of f1 for each class). Используем macro в случае несбалансированных классов. Хорошо подходит для получения представления об оценки по каждому классу, особенно если размеры классов одинаковы
-2. Micro - представляет, что перед нами задача классификации и аггрегирует TP, FP, FN для всех классов. Используем micro в случае сбалансированных классов. Однако данный случай хорошо подходит для общей оценки, особенно когда размеры классов значительно отличаются.
-3. Weighted - высчитывает независимо метрику для каждого класса и затем берем среднее с учетом количество объектов из каждого класса. Полезно при работе с несбалансированными наборами данных, чтобы убедиться, что большие классы не доминируют в метрике
+1. Macro - независимо рассчитываем метрику для каждого класса и затем берем среднее арифметическое по всем классам. macro_f1 = 1/N (sum of f1 for each class). Используем macro в случае несбалансированных классов. Хорошо подходит для получения представления об оценки по каждому классу, особенно если размеры классов одинаковы. In problems where infrequent classes are nonetheless important, macro-averaging may be a means of highlighting their performance. On the other hand, the assumption that all classes are equally important is often untrue, such that macro-averaging will over-emphasize the typically low performance on an infrequent class.
+2. Micro - представляет, что перед нами задача классификации и аггрегирует TP, FP, FN для всех классов. Imbalanced Classes with Equal Instance Importance: Use micro averaging when every instance is equally important, regardless of the class it belongs to.
+3. Weighted - высчитывает независимо метрику для каждого класса и затем берем среднее с учетом количество объектов из каждого класса. Use weighted averaging when you want to account for class imbalance and ensure that metrics reflect the performance on more frequent classes more heavily.
+4. Samples - Samples averaging calculates metrics for each instance (considering all labels associated with that instance) and then takes the average across all instances.
+
+Summary of When to Use Each Averaging Method:
+1. Macro Averaging:
+* Use when all classes are equally important, regardless of their frequency.
+* Best for balanced multi-class problems.
+2. Weighted Averaging:
+* Use when classes are imbalanced, and you want to account for the frequency of each class in the overall metric.
+* Best for imbalanced multi-class problems.
+3. Micro Averaging:
+* Use when you care about the overall number of correctly predicted instances, regardless of their class.
+* Best for multi-class or multi-label problems where every instance or label is equally important.
+4. Samples Averaging:
+* Use specifically for multi-label classification when you want to evaluate performance at the level of individual instances rather than across labels.
+
 
 ## Линейные модели
 
