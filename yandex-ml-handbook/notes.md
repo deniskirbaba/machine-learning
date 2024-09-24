@@ -36,45 +36,191 @@ Data scientists обычно выбирают одни метрики для н�
 6. Количество классов (бинарная классификация или многоклассовая). В зависимости от этого confusion matrix, accuracy, precision, recall, f1-score могут быть адаптированы для многоклассовой классификации, используя macro, micro, weighted averages
 7. Вычислительная сложность
 
-Common Metrics for Classification
-Binary Classification Metrics:
-1. Accuracy: Proportion of correctly classified instances.
-2. Precision: Proportion of true positive predictions among all positive predictions.
-3. Recall (Sensitivity): Proportion of true positive predictions among all actual positives.
-4. F1-Score: Harmonic mean of Precision and Recall, balancing the two.
-5. AUROC (Area Under ROC Curve): Measures the ability of the model to distinguish between classes.
-6. AUPRC (Area Under Precision-Recall Curve): Useful for imbalanced datasets.
-7. Confusion Matrix: Provides counts of true positives, true negatives, false positives, and false negatives.
-Multi-class Classification Metrics:
-1. Accuracy: Overall correctness.
-2. Precision, Recall, F1-Score: Can be computed for each class and averaged (macro, micro, weighted).
-3. Confusion Matrix: Extended for multiple classes.
-4. Logarithmic Loss (Log Loss): Measures the uncertainty of predictions.
-5. Cohen’s Kappa: Measures the agreement between predicted and actual classes, adjusted for chance.
+### Common Metrics for Classification:
 
-Precision-Recall Curves are preferable for imbalanced datasets and when the focus is on the positive class.  
-ROC Curves provide a more balanced view of performance, especially on balanced datasets, and are easier to interpret across a wide range of applications.  
-Choose the curve based on the nature of your dataset and the importance of precision vs. recall in your specific problem.  
+#### **1. Accuracy**
+- **Definition**: The proportion of correctly classified instances out of the total instances.
+- **Formula**:
+  $$
+  \text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}
+  $$
+  where TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives.
+- **Comment**: Accuracy can be misleading for imbalanced datasets, as it does not differentiate between types of errors (false positives vs. false negatives).
 
-При адаптации метрик бинарной классификации к многоклассовой производится вычисление метрик для каждого класса и затем их усреднение по различному виду: macro, micro, weighted:
-1. Macro - независимо рассчитываем метрику для каждого класса и затем берем среднее арифметическое по всем классам. macro_f1 = 1/N (sum of f1 for each class). Используем macro в случае несбалансированных классов. Хорошо подходит для получения представления об оценки по каждому классу, особенно если размеры классов одинаковы. In problems where infrequent classes are nonetheless important, macro-averaging may be a means of highlighting their performance. On the other hand, the assumption that all classes are equally important is often untrue, such that macro-averaging will over-emphasize the typically low performance on an infrequent class.
-2. Micro - представляет, что перед нами задача классификации и аггрегирует TP, FP, FN для всех классов. Imbalanced Classes with Equal Instance Importance: Use micro averaging when every instance is equally important, regardless of the class it belongs to.
-3. Weighted - высчитывает независимо метрику для каждого класса и затем берем среднее с учетом количество объектов из каждого класса. Use weighted averaging when you want to account for class imbalance and ensure that metrics reflect the performance on more frequent classes more heavily.
-4. Samples - Samples averaging calculates metrics for each instance (considering all labels associated with that instance) and then takes the average across all instances.
+#### **2. Precision (Positive Predictive Value)**
+- **Definition**: The proportion of true positive predictions among all positive predictions (i.e., it measures how many of the predicted positives are actually correct).
+- **Formula**:
+  $$
+  \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+  $$
+- **Comment**: Precision is useful when the cost of false positives is high (e.g., in spam detection, you don’t want to classify important emails as spam).
 
-Summary of When to Use Each Averaging Method:
-1. Macro Averaging:
-* Use when all classes are equally important, regardless of their frequency.
-* Best for balanced multi-class problems.
-2. Weighted Averaging:
-* Use when classes are imbalanced, and you want to account for the frequency of each class in the overall metric.
-* Best for imbalanced multi-class problems.
-3. Micro Averaging:
-* Use when you care about the overall number of correctly predicted instances, regardless of their class.
-* Best for multi-class or multi-label problems where every instance or label is equally important.
-4. Samples Averaging:
-* Use specifically for multi-label classification when you want to evaluate performance at the level of individual instances rather than across labels.
+#### **3. Recall (Sensitivity or True Positive Rate)**
+- **Definition**: The proportion of true positive predictions among all actual positives (i.e., how well the model identifies true positives).
+- **Formula**:
+  $$
+  \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+  $$
+- **Comment**: Recall is critical in cases where missing a positive case (false negatives) is costly (e.g., in medical diagnoses, failing to detect a disease is more serious than a false positive).
 
+#### **4. F1-Score**
+- **Definition**: The harmonic mean of Precision and Recall. It provides a balanced measure that takes both false positives and false negatives into account.
+- **Formula**:
+  $$
+  \text{F1-Score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+  $$
+- **Comment**: F1-Score is useful when you want a balance between precision and recall, especially in cases of class imbalance.
+
+#### **5. AUROC (Area Under the ROC Curve)**
+- **Definition**: The area under the Receiver Operating Characteristic (ROC) curve. The ROC curve plots the **True Positive Rate (Recall)** against the **False Positive Rate (FPR)** at different thresholds.
+- **Formula for FPR**:
+  $$
+  \text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
+  $$
+- **Comment**: AUROC measures the model’s ability to distinguish between classes. A value of 0.5 represents random guessing, while a value of 1 represents perfect classification.
+- **Properties**:
+1. Scale-invariant. It measures how well predictions
+are ranked, rather than their absolute values.
+2. Classiﬁcation-threshold-invariant. It measures the
+quality of the model's predictions irrespective of
+what classiﬁcation threshold is chosen.
+
+#### **6. AUPRC (Area Under Precision-Recall Curve)**
+- **Definition**: The area under the Precision-Recall curve. This curve plots Precision against Recall for various thresholds.
+- **Comment**: AUPRC is particularly useful for **imbalanced datasets** because it focuses on the performance of the positive class, especially when the negative class is overwhelmingly larger.
+
+#### **7. Confusion Matrix**
+- **Definition**: A table that summarizes the performance of a classification model by showing the counts of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN).
+- **Structure**:
+  |                | Predicted Positive | Predicted Negative |
+  |----------------|-------------------|-------------------|
+  | Actual Positive | True Positive (TP) | False Negative (FN)|
+  | Actual Negative | False Positive (FP)| True Negative (TN) |
+  
+- **Comment**: The confusion matrix is a fundamental tool for understanding classification performance and calculating other metrics.
+
+### **Metrics for Multi-Class Classification:**
+
+In multi-class classification, the metrics can be calculated per class and then averaged across classes.
+
+#### **1. Accuracy**
+- **Definition**: The overall correctness, calculated as the proportion of correctly classified instances among all instances.
+- **Formula**: Same as for binary classification, but counts true positives and negatives for all classes.
+
+#### **2. Precision, Recall, and F1-Score**
+- **Definition**: These metrics can be extended to multi-class classification by computing them for each class and then averaging across all classes. There are three ways to average:
+  - **Macro averaging**: Average of metrics calculated independently for each class (gives equal weight to each class).
+  - **Micro averaging**: Calculate the metrics globally by summing true positives, false positives, and false negatives across all classes.
+  - **Weighted averaging**: Average metrics across classes, weighted by the number of instances in each class (useful for class imbalance).
+  
+#### **3. Confusion Matrix**
+- **Definition**: In multi-class classification, the confusion matrix is extended to an $n \times n$ matrix, where $n$ is the number of classes. Each entry $C_{i,j}$ represents the number of instances of class $i$ predicted as class $j$.
+
+#### **4. Logarithmic Loss (Log Loss)**
+- **Definition**: Also known as cross-entropy loss, it measures the uncertainty of predictions by comparing the predicted probability distribution over classes with the true distribution (usually one-hot encoded).
+- **Formula**:
+  $$
+  \text{Log Loss} = - \frac{1}{N} \sum_{i=1}^{N} \sum_{c=1}^{C} y_{i,c} \log(p_{i,c})
+  $$
+  where $y_{i,c}$ is the true label (0 or 1), and $p_{i,c}$ is the predicted probability for class $c$ of instance $i$.
+
+- **Comment**: Log loss is useful for probabilistic classifiers and penalizes confident but incorrect predictions more heavily than less confident ones.
+
+#### **5. Cohen’s Kappa**
+- **Definition**: Cohen’s Kappa measures the agreement between predicted and actual classifications, adjusted for the chance of random agreement.
+- **Formula**:
+  $$
+  \kappa = \frac{p_o - p_e}{1 - p_e}
+  $$
+  where $p_o$ is the observed agreement (accuracy) and $p_e$ is the expected agreement by chance.
+- **Comment**: Cohen’s Kappa is useful when dealing with imbalanced data and gives a more nuanced view than accuracy.
+
+### **Precision-Recall Curves vs. ROC Curves**
+
+- **Precision-Recall Curves**: Preferable for **imbalanced datasets**, especially when the **positive class** is of primary interest. PR curves focus on how well the model identifies the positive class while minimizing false positives.
+  
+- **ROC Curves**: Provide a more balanced view of performance across classes and are easier to interpret when the dataset is **balanced**. The ROC curve shows how well the model distinguishes between the positive and negative classes by plotting recall (true positive rate) against the false positive rate.
+
+### **Choosing the Right Curve**:
+- Use **Precision-Recall Curves** when the **positive class is rare** or the dataset is highly imbalanced, and you're interested in optimizing performance for the positive class.
+- Use **ROC Curves** for more **balanced datasets** or when you need to assess the overall discriminative ability of the classifier across all thresholds.
+
+### Averaging Techniques for Multi-class Classification:
+
+When adapting binary classification metrics (like precision, recall, F1-score) to multi-class classification, we compute metrics for each class and then combine them using different averaging techniques. The most common techniques are **macro**, **micro**, **weighted**, and for multi-label problems, **samples averaging**.
+
+#### **1. Macro Averaging**
+- **Definition**: In macro averaging, the metric (e.g., precision, recall, F1-score) is calculated **independently for each class**, and then the arithmetic mean of these values is taken across all classes.
+- **Formula**:
+  $$
+  \text{macro\_metric} = \frac{1}{N} \sum_{i=1}^{N} \text{metric}(i)
+  $$
+  where $N$ is the number of classes, and $\text{metric}(i)$ refers to the metric computed for class $i$.
+
+- **When to Use**:
+  - Use **macro averaging** when all classes are equally important, regardless of their frequency in the dataset. This method gives equal weight to each class, so it's useful for problems where performance on minority classes is just as critical as on majority classes.
+  - **Example**: In a disease detection problem, even if one disease is rare, you might still want to evaluate its classification performance equally with common diseases.
+
+- **Drawback**: In imbalanced datasets, macro averaging may **overemphasize the performance** on minority classes, which may have less data, potentially skewing the overall performance metric.
+
+#### **2. Micro Averaging**
+- **Definition**: In micro averaging, the true positives (TP), false positives (FP), and false negatives (FN) are aggregated **across all classes**, and then the metric is computed from these aggregated counts. It treats the problem as a single multi-class task rather than focusing on individual class metrics.
+- **Formula**:
+  $$
+  \text{micro\_metric} = \frac{\sum \text{TP}_{i}}{\sum (\text{TP}_i + \text{FP}_i + \text{FN}_i)}
+  $$
+  where the sums are across all classes $i$.
+
+- **When to Use**:
+  - Use **micro averaging** when **each instance is equally important**, regardless of which class it belongs to. This method is useful when you want to optimize for the **total number of correct predictions** across all classes, rather than focusing on individual class performance.
+  - **Example**: If you’re evaluating an email classification system and you care more about the total number of correct classifications rather than performance on any specific category (spam vs. non-spam), micro averaging is appropriate.
+
+- **Strength**: Micro averaging is effective when you have **imbalanced classes** but still care about the overall performance in terms of the total number of correct predictions.
+
+#### **3. Weighted Averaging**
+- **Definition**: In weighted averaging, the metric is calculated **independently for each class**, but the final average is **weighted by the number of instances** in each class. This approach accounts for class imbalance by giving more influence to metrics from more frequent classes.
+- **Formula**:
+  $$
+  \text{weighted\_metric} = \sum_{i=1}^{N} w_i \cdot \text{metric}(i)
+  $$
+  where $w_i = \frac{\text{number of instances in class } i}{\text{total number of instances}}$.
+
+- **When to Use**:
+  - Use **weighted averaging** when the dataset is **imbalanced** and you want to ensure that the overall metric reflects the performance on **more frequent classes** more heavily.
+  - **Example**: In a text classification problem with several categories where some categories are much more common than others, weighted averaging will provide a more realistic overall metric by giving more importance to the classes with more data.
+
+- **Benefit**: Weighted averaging provides a balanced view of performance that reflects the dataset’s class distribution, making it suitable for imbalanced data.
+
+#### **4. Samples Averaging (for Multi-label Classification)**
+- **Definition**: In **multi-label classification**, each instance can belong to multiple classes (labels). **Samples averaging** computes metrics (like precision, recall, or F1-score) at the **instance level**. For each instance, the metric is calculated considering **all the labels** associated with that instance, and then the average is taken across all instances.
+- **Formula**:
+  $$
+  \text{samples\_metric} = \frac{1}{N} \sum_{i=1}^{N} \text{metric for instance } i
+  $$
+  where $N$ is the total number of instances.
+
+- **When to Use**:
+  - Use **samples averaging** in **multi-label classification** problems where you want to assess the performance at the instance level, considering all the labels assigned to each instance.
+  - **Example**: In a multi-label image classification problem where an image can have multiple tags (like "cat," "dog," and "tree"), samples averaging gives insight into how well the model performs across all labels for each individual image.
+
+- **Strength**: This method is especially suited for multi-label problems, where evaluating performance based on individual labels may not be enough.
+
+### Summary of When to Use Each Averaging Method:
+
+1. **Macro Averaging**:
+   - Use when **all classes are equally important**, regardless of their frequency.
+   - Best for **balanced multi-class problems** or when minority classes are of significant interest.
+
+2. **Weighted Averaging**:
+   - Use when classes are **imbalanced**, and you want to account for the frequency of each class in the overall metric.
+   - Best for **imbalanced multi-class problems** where you want a metric that reflects the **distribution of classes**.
+
+3. **Micro Averaging**:
+   - Use when you care about the **total number of correctly predicted instances**, regardless of which class they belong to.
+   - Best for **multi-class or multi-label problems** where **every instance is equally important**.
+
+4. **Samples Averaging**:
+   - Use specifically for **multi-label classification** when you want to evaluate performance at the level of **individual instances** rather than across labels.
 
 ## Линейные модели
 
