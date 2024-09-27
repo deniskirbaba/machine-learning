@@ -1,6 +1,3 @@
-import numpy as np
-
-
 class Module(object):
     """
     Basically, you can think of a module as of a something (black box)
@@ -174,7 +171,7 @@ class Sequential(Module):
              
         !!!
                 
-        To ech module you need to provide the input, module saw while forward pass, 
+        To each module you need to provide the input, module saw while forward pass, 
         it is used while computing gradients. 
         Make sure that the input for `i-th` layer the output of `module[i]` (just the same input as in forward pass) 
         and NOT `input` to this Sequential module. 
