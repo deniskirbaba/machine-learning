@@ -1003,3 +1003,13 @@ The choice of bandwidth \( h \) is crucial:
 ### Summary
 
 Kernel Density Estimation (KDE) is a powerful non-parametric technique for estimating the probability density function of a random variable. It works by placing kernels on each data point and summing them to create a smooth, continuous density estimate. The method is flexible and widely used in data analysis, though its effectiveness depends on the careful selection of the kernel bandwidth.
+
+# Further readings
+
+* [Good lecture on MDS, Isomap, LLE](https://habr.com/ru/post/321216)
+* [Lecture on t-SNE (this one is good too)](https://www.youtube.com/watch?v=4GBgqmq0XAY)
+* [Slides about clusterization](https://github.com/vkantor/MIPT_Data_Mining_In_Action_2016/blob/master/lectures/3_Clustering.pdf)
+* [Metrics in clusterization](https://github.com/esokolov/ml-course-hse/blob/master/2018-fall/lecture-notes/lecture11-unsupervised.pdf)
+* [Slides about ICA](https://www.dropbox.com/s/fhcg7598v048yei/GMML_Bernstein_Lecture3.pdf?dl=0)
+* [More clustering methods (in Russian)](https://habr.com/ru/post/321216/)
+ 
