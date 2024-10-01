@@ -66,3 +66,13 @@ In summary, 1x1 convolutions are used in neural networks for:
 - **Deepening networks** with more non-linear transformations without altering spatial dimensions.
 
 The use of $1 \times 1$ convolutions enhances both the flexibility and efficiency of modern CNN architectures, making them a crucial component of many state-of-the-art models.
+
+# Fine-tuning vs Feature extraction
+
+In **finetuning**, we start with a
+pretrained model and update *all* of the model’s parameters for our new
+task, in essence retraining the whole model. In **feature extraction**,
+we start with a pretrained model and only update the final layer weights
+from which we derive predictions. It is called feature extraction
+because we use the pretrained CNN as a fixed feature-extractor, and only
+change the output layer.
